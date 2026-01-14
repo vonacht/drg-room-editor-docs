@@ -1,4 +1,82 @@
 # Room Features
+## Your First Room 
+
+Rooms can have three different features:
+
+* `FloodFillLines`: the basic unit of a room, it is made by a series of points that define semi-ellipsoids in 3D space. The game will connect all the points of a `FloodFillLine` by removing the material between them. A room can consist of as many `FloodFillLines` as you want.
+* `Entrances`: points in 3D space with an associated vector which tell the game where to connect the room's entry and exit tunnels.
+* `FloodFillPillars`: specified by a series of points in 3D space, the game will fill the resulting line with material. This is how the game implements decorations, bridges or the infamous finger cave. 
+
+The editor will force the room JSON to have at least the `FloodFillLines` and `Entrances` fields, while pillars are optional. The simplest room you can create is a single `FloodFillLine` with two points, and two `Entrances` (one entrance and one exit):
+
+```json 
+{
+    "Name": "RMA_EditorTutorial",
+    "Bounds": 3500,
+    "Tags": [
+        "Rooms.Linear.CustomTest"
+    ],
+    "FloodFillLines": {
+        "Floodfill_1": {
+            "Points": [
+                {
+                    "Location": {
+                        "X": 0,
+                        "Y": 0,
+                        "Z": 0
+                    },
+                    "HRange": 850,
+                    "VRange": 850
+                },
+                {
+                    "Location": {
+                        "X": 0,
+                        "Y": 5000,
+                        "Z": 0
+                    },
+                    "HRange": 850,
+                    "VRange": 850
+                }
+            ]
+        }
+    },
+    "Entrances": {
+        "Entrance_1": {
+            "Location": {
+                "X": 0,
+                "Y": -700,
+                "Z": 200
+            },
+            "Type": "Entrance",
+            "Direction": {
+                "Pitch": 0,
+                "Yaw": 90,
+                "Roll": 0
+            }
+        },
+        "Entrance_2": {
+            "Location": {
+                "X": 0,
+                "Y": 5600,
+                "Z": 200
+            },
+            "Type": "Exit",
+            "Direction": {
+                "Pitch": 0,
+                "Yaw": 90,
+                "Roll": 0
+            }
+        }
+    }
+}
+```
+
+which produces the following cave:
+
+![Simple Cave](assets/simple-cave.png)
+
+The following sections contain all the implemented fields for each feature.
+
 ## FloodFillLines and FloodFillPoints
 The `FloodFillLine` is the basic unit of a room. It is made of a series of `FloodFillPoints`. Points of the same line will be connected together by their tangent lines as shown in the visual editor, in the order they are specified. A room can have as many lines as desired, and a line must have a minimum of two points to be drawn by the game. Each point has the following parameters:
 
@@ -58,7 +136,7 @@ Entrances have the following parameters:
 + You can specify more than one `Entrance` and one `Exit` and the game will pick them at random. Having no `Entrance` or no `Exit` is untested.
 + The game will try to connect the tunnels in the angle specified by the `Rotator` even if it means intersecting the tunnel with your room.
 
-### FloodFillPillars
+## FloodFillPillars
 If FloodFillLines remove material to create a room, pillars are how material can be added to create columns, decorations, bridges, etc. A `FloodFillPillar` is in essence a series of points that form a line. Each point of the line has the following parameters:
 
 | Parameter | Required | Default | Comment |
@@ -142,18 +220,24 @@ The following images have a couple of pillar examples.
                 "Range": {
                     "Min": 700,
                     "Max": 700
-                }
+                },
+                "NoiseRange": {
+                    "Min": 200,
+                    "Max": 200
             },
             {
                 "Location": {
                     "X": 0,
                     "Y": 0,
                     "Z": 500
-                }
+                },
                 "Range": {
                     "Min": 700,
                     "Max": 700
-                }
+                },
+                "NoiseRange": {
+                    "Min": 200,
+                    "Max": 200
             }
         ]
     },
