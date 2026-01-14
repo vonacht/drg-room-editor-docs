@@ -1,1 +1,7 @@
-site_name: My Docs
+site_name: DRG Room Editor Documentation
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Getting Started: introduction.md
+  - Room Features: room_parameters.md
