@@ -308,6 +308,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#your-first-room" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your First Room
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#floodfilllines-and-floodfillpoints" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -366,10 +377,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Entrances">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#floodfillpillars" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -377,11 +387,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -420,6 +425,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#your-first-room" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your First Room
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#floodfilllines-and-floodfillpoints" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -478,10 +494,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Entrances">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#floodfillpillars" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -489,11 +504,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -515,6 +525,77 @@
 
 
 <h1 id="room-features">Room Features</h1>
+<h2 id="your-first-room">Your First Room</h2>
+<p>Rooms can have three different features:</p>
+<ul>
+<li><code>FloodFillLines</code>: the basic unit of a room, it is made by a series of points that define semi-ellipsoids in 3D space. The game will connect all the points of a <code>FloodFillLine</code> by removing the material between them. A room can consist of as many <code>FloodFillLines</code> as you want.</li>
+<li><code>Entrances</code>: points in 3D space with an associated vector which tell the game where to connect the room's entry and exit tunnels.</li>
+<li><code>FloodFillPillars</code>: specified by a series of points in 3D space, the game will fill the resulting line with material. This is how the game implements decorations, bridges or the infamous finger cave. </li>
+</ul>
+<p>The editor will force the room JSON to have at least the <code>FloodFillLines</code> and <code>Entrances</code> fields, while pillars are optional. The simplest room you can create is a single <code>FloodFillLine</code> with two points, and two <code>Entrances</code> (one entrance and one exit):</p>
+<pre><code class="language-json">{
+    &quot;Name&quot;: &quot;RMA_EditorTutorial&quot;,
+    &quot;Bounds&quot;: 3500,
+    &quot;Tags&quot;: [
+        &quot;Rooms.Linear.CustomTest&quot;
+    ],
+    &quot;FloodFillLines&quot;: {
+        &quot;Floodfill_1&quot;: {
+            &quot;Points&quot;: [
+                {
+                    &quot;Location&quot;: {
+                        &quot;X&quot;: 0,
+                        &quot;Y&quot;: 0,
+                        &quot;Z&quot;: 0
+                    },
+                    &quot;HRange&quot;: 850,
+                    &quot;VRange&quot;: 850
+                },
+                {
+                    &quot;Location&quot;: {
+                        &quot;X&quot;: 0,
+                        &quot;Y&quot;: 5000,
+                        &quot;Z&quot;: 0
+                    },
+                    &quot;HRange&quot;: 850,
+                    &quot;VRange&quot;: 850
+                }
+            ]
+        }
+    },
+    &quot;Entrances&quot;: {
+        &quot;Entrance_1&quot;: {
+            &quot;Location&quot;: {
+                &quot;X&quot;: 0,
+                &quot;Y&quot;: -700,
+                &quot;Z&quot;: 200
+            },
+            &quot;Type&quot;: &quot;Entrance&quot;,
+            &quot;Direction&quot;: {
+                &quot;Pitch&quot;: 0,
+                &quot;Yaw&quot;: 90,
+                &quot;Roll&quot;: 0
+            }
+        },
+        &quot;Entrance_2&quot;: {
+            &quot;Location&quot;: {
+                &quot;X&quot;: 0,
+                &quot;Y&quot;: 5600,
+                &quot;Z&quot;: 200
+            },
+            &quot;Type&quot;: &quot;Exit&quot;,
+            &quot;Direction&quot;: {
+                &quot;Pitch&quot;: 0,
+                &quot;Yaw&quot;: 90,
+                &quot;Roll&quot;: 0
+            }
+        }
+    }
+}
+</code></pre>
+<p>which produces the following cave:</p>
+<p><img alt="Simple Cave" src="../assets/simple-cave.png" /></p>
+<p>The following sections contain all the implemented fields for each feature.</p>
 <h2 id="floodfilllines-and-floodfillpoints">FloodFillLines and FloodFillPoints</h2>
 <p>The <code>FloodFillLine</code> is the basic unit of a room. It is made of a series of <code>FloodFillPoints</code>. Points of the same line will be connected together by their tangent lines as shown in the visual editor, in the order they are specified. A room can have as many lines as desired, and a line must have a minimum of two points to be drawn by the game. Each point has the following parameters:</p>
 <table>
@@ -634,7 +715,7 @@ Entrances have the following parameters:</p>
 <li>You can specify more than one <code>Entrance</code> and one <code>Exit</code> and the game will pick them at random. Having no <code>Entrance</code> or no <code>Exit</code> is untested.</li>
 <li>The game will try to connect the tunnels in the angle specified by the <code>Rotator</code> even if it means intersecting the tunnel with your room.</li>
 </ul>
-<h3 id="floodfillpillars">FloodFillPillars</h3>
+<h2 id="floodfillpillars">FloodFillPillars</h2>
 <p>If FloodFillLines remove material to create a room, pillars are how material can be added to create columns, decorations, bridges, etc. A <code>FloodFillPillar</code> is in essence a series of points that form a line. Each point of the line has the following parameters:</p>
 <table>
 <thead>
@@ -770,18 +851,24 @@ Entrances have the following parameters:</p>
                 &quot;Range&quot;: {
                     &quot;Min&quot;: 700,
                     &quot;Max&quot;: 700
-                }
+                },
+                &quot;NoiseRange&quot;: {
+                    &quot;Min&quot;: 200,
+                    &quot;Max&quot;: 200
             },
             {
                 &quot;Location&quot;: {
                     &quot;X&quot;: 0,
                     &quot;Y&quot;: 0,
                     &quot;Z&quot;: 500
-                }
+                },
                 &quot;Range&quot;: {
                     &quot;Min&quot;: 700,
                     &quot;Max&quot;: 700
-                }
+                },
+                &quot;NoiseRange&quot;: {
+                    &quot;Min&quot;: 200,
+                    &quot;Max&quot;: 200
             }
         ]
     },

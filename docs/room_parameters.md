@@ -1,11 +1,32 @@
 # Room Features
-## Your First Room 
 
 Rooms can have three different features:
 
 * `FloodFillLines`: the basic unit of a room, it is made by a series of points that define semi-ellipsoids in 3D space. The game will connect all the points of a `FloodFillLine` by removing the material between them. A room can consist of as many `FloodFillLines` as you want.
 * `Entrances`: points in 3D space with an associated vector which tell the game where to connect the room's entry and exit tunnels.
 * `FloodFillPillars`: specified by a series of points in 3D space, the game will fill the resulting line with material. This is how the game implements decorations, bridges or the infamous finger cave. 
+
+In addition, there are two special features that can be added if you want to add your room to Point Extraction (aquarq) missions:
+
+* `PE_MiningHead`, accepts one or multiple locations with the position of the minehead. The game will pick one at random. If none is present, the minehead will fall at (x, y, z) = (0, 0, 0).
+* `PE_PodDropDown`, accepts one or multiple locations for the extraction pod to land at the end of the mission. Works exactly like `PE_Minehead`.
+
+Finally, there are three single fields that belong to the room:
+
+* `Name`: the name of the room as will be shown in the editor and the name that will be used when saving the UAsset.
+* `Bounds`: controls the distance between caves. Smaller bounds give shorter tunnels in mining missions but could also cause rooms to be so close that they overlap together. Some starting points could be:
+
+| Room size | Bounds |
+| -- | -- |
+| Small | 2500 |
+| Medium | 3500 |
+| Big | 4500 |
+
+How big are your rooms? If the room can be contained in a 1000x1000x1000 cube, the room is on the smaller side. For a 10000x10000x10000 cube the room is on the bigger side. Feel free to experiment!
+
+* `Tags`: the tags are how the game chooses which rooms to pick for each mission. Please see section [Adding the room to the game](adding_room.md).
+
+## Your First Room 
 
 The editor will force the room JSON to have at least the `FloodFillLines` and `Entrances` fields, while pillars are optional. The simplest room you can create is a single `FloodFillLine` with two points, and two `Entrances` (one entrance and one exit):
 
@@ -95,7 +116,7 @@ The `FloodFillLine` is the basic unit of a room. It is made of a series of `Floo
 
 ### Controlling the room size 
 
-The main parameters for controlling the size are `HRange`, `VRange`, `CeilingHeight` and `FloorAngle`. To make a point wider or narrower in the XY plane, change its `HRange` value:
+The main parameters for controlling the size are `HRange`, `VRange`, `CeilingHeight` and `FloorDepth`. To make a point wider or narrower in the XY plane, change its `HRange` value:
 
 ![HRange](assets/hrangedited.png)
 

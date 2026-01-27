@@ -5,3 +5,4 @@ nav:
   - Home: index.md
   - Getting Started: introduction.md
   - Room Features: room_parameters.md
+  - Adding the room to the game (information for modders): adding_room.md
