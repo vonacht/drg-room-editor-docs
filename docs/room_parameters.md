@@ -9,7 +9,7 @@ Rooms can have three different features:
 In addition, there are two special features that can be added if you want to add your room to Point Extraction (aquarq) missions:
 
 * `PE_MiningHead`, accepts one or multiple locations with the position of the minehead. The game will pick one at random. If none is present, the minehead will fall at (x, y, z) = (0, 0, 0).
-* `PE_PodDropDown`, accepts one or multiple locations for the extraction pod to land at the end of the mission. Works exactly like `PE_Minehead`.
+* `PE_PodDropDown`, accepts one or multiple locations for the extraction pod to land at the end of the mission. Works exactly like `PE_MiningHead`.
 
 Finally, there are three single fields that belong to the room:
 
